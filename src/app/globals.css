@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+/* ================================
+   Theme Variables
+================================ */
+:root {
+  --primary: #111111;
+  --secondary: #191919;
+  --background: #090909;
+  --accent: #2c1a75;
+  --accent-secondary: #1d0736;
+  --accent-tertiary: #363536;
+  --text: #eeeeee;
+  --border: #2b343b;
+  --button: #9854cb;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+
+}
+
+span.font-medium.text-red {
+  color: #172b4d;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+span.text-red-500 {
+  color: #172b4d;
+  font-weight: 500;
+}
+
+svg.text-gray-500.font-xl {
+  font-size: 20px;
+}
+
+/* ================================
+   Global Styles
+================================ */
+body {
+  background-color: white;
+  color: black;
+
+}
+
+span.font-medium.text-red {
+  color: #172b4d;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.mb-4.rounded-xl.p-3.bg-white.shadow {
+  background: #ffffff;
+  color: black;
+  border: 1px solid var(--button);
+  border-radius: 1rem;
+  padding: 1rem;
+
+}
+
+
+Link,
+button {
+  cursor: pointer;
+}
+
+button.flex.items-center.px-4.py-2.bg-red.text-white.border.border-gray-300.rounded-md.hover\:bg-gray-200.transition {
+  background: red !important;
+}
+
+/* ================================
+   Layout
+================================ */
+main.relative.col-span-full.xl\:col-span-9.\32 xl\:col-span-10.xl\:col-start-4.\32 xl\:col-start-3.row-start-2.overflow-y-auto {
+  background: #fafcfd;
+  color: black;
+}
+
+.sticky.top-0.border-b.border-\[var\(--border\)\].h-fit.w-full.bg-white.p-6.\32 xl\:p-7.z-30.hidden.xl\:flex.items-center.justify-between.shadow {
+  border-bottom: #eaecf0;
+}
+
+button.flex-1.flex.items-center.justify-center.px-4.py-2.bg-blue-600.text-white.border.border-blue-600.rounded-md.hover\:brightness-110 {
+  background: #581a99;
+  border: 0;
+}
+
+button.flex-1.flex.items-center.justify-center.px-4.py-2.bg-gray-500.text-white.border.border-gray-500.rounded-md.hover\:brightness-110 {
+  background: red;
+  border: 0;
+}
+
+/* ================================
+   Buttons
+================================ */
+button.flex.items-center.px-4.py-2.border.bg-\[var\(--button\)\].rounded-lg {
+  color: white;
+  border: none;
+}
+
+button.text-\[var\(--text\)\] {
+  color: black;
+}
+
+button.absolute.-top-4.right-4.text-\[var\(--text\)\] {
+  color: white;
+}
+
+a.w-full.flex.items-center.font-medium.text-lg.xl\:text-xl.gap-2.\32 xl\:gap-4.px-4.\32 xl\:px-6.py-4.rounded-2xl.hover\:bg-\[var\(--accent\)\].transition-colors.bg-\[var\(--button\)\] {
+  color: white;
+}
+
+/* ================================
+   Typography
+================================ */
+h2.text-xl.font-semibold.text-\[var\(--text\)\].mb-4 {
+  color: black;
+}
+
+h3.text-2xl.font-bold.text-\[var\(--text\)\].capitalize {
+  color: black;
+}
+
+p.text-sm.xl\:text-base.font-medium.text-\[var\(--text\)\]\/70 {
+  color: black;
+}
+
+p.text-xs.font-medium.text-\[var\(--text\)\] {
+  color: black;
+}
+
+.group.relative {
+  color: white;
+}
+
+/* ================================
+   Cards & Containers
+================================ */
+.p-4.rounded-xl.shadow-md.bg-\[var\(--secondary\)\].flex.flex-col.gap-3.border.border-\[var\(--border\)\] {
+  background: white;
+  border: none;
+}
+
+/* ================================
+   React Datepicker
+================================ */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__input-container input {
+  width: 100%;
+  padding: 8px;
+}
+
+/* ================================
+   Kanban Column
+================================ */
+.kanban-column {
+  background: #ffffff;
+  color: black;
+  border: 1px solid var(--button);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  min-height: 200px;
+}
+
+#task-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--button);
+  border-radius: 100%;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s, border 0.2s;
+}
+
+#task-checkbox:checked {
+  border-color: green;
+  position: relative;
+}
+
+#task-checkbox:checked::after {
+  content: "✔";
+  font-size: 10px !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
