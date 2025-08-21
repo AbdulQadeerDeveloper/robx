@@ -15,7 +15,7 @@ import TaskForm from "@/Components/Modals/TaskForm";
 import AddMemberModal from "@/Components/Modals/AddmemberModal";
 import { COLORS } from "@/constants/Data";
 import { Task } from "@/types/task";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdOutlineWatchLater } from "react-icons/md";
 
 interface User {
   id: number;
@@ -422,7 +422,7 @@ export default function TasksBoard({ refreshTrigger }: { refreshTrigger?: number
                               </div>
 
                               <div className="flex items-center gap-1">
-                                <BiSolidWatch className="text-gray-500 font-xl" />
+                                <MdOutlineWatchLater className="text-gray-500 font-xl" />
                                 <span className="text-red-500">
                                   {task.dueDate &&
                                     new Date(

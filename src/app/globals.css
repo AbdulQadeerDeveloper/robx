@@ -197,3 +197,25 @@ p.text-xs.font-medium.text-\[var\(--text\)\] {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.text-red-500 {
+  color: oklch(0.48 0.18 25.86);
+}
+
+button.px-4.py-2.bg-red-500.text-white.rounded-md.hover\:bg-red-600 {
+  background-color: oklch(0.48 0.18 25.86);
+  color: white;
+}
+
+svg.text-gray-500.font-xl {
+  font-size: 17px;
+}
+
+span.text-2xl.font-semibold.text-black {
+  letter-spacing: 1px;
+  /* spacing between letters */
+  font-size: 1.5rem;
+  /* increase the size */
+  
+  /* capitalize all letters */
+}
