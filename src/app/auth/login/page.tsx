@@ -20,17 +20,24 @@ const Login = () => {
     setError("");
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/admin/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) {
         setError(data.message || "Login failed");
         setLoading(false);
         return;
+      }
+
+      if (username) {
+        localStorage.setItem("userInitial", username.charAt(0).toUpperCase());
       }
 
       window.location.href = "/user/dashboard";
@@ -46,7 +53,9 @@ const Login = () => {
     <main className="relative w-full min-h-screen flex items-center justify-between bg-[var(--accent-secondary)]">
       <section className="w-1/2 h-screen hidden lg:block bg-[url('/Auth/Auth-Hero.jpg')] bg-cover bg-end bg-no-repeat"></section>
       <section className="text-white w-10/12 lg:w-[45%] flex flex-col justify-center gap-10 max-w-lg h-full mx-auto p-10 border-1 border-[var(--button)] rounded-lg bg-[#18062C]">
-        <h2 className="text-3xl font-bold text-center text-[var(--neutral)]">Welcome Back!</h2>
+        <h2 className="text-3xl font-bold text-center text-[var(--neutral)]">
+          Welcome Back!
+        </h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
         <form onSubmit={submitForm} className="space-y-6">
           <div className="space-y-2 text-left">
@@ -76,10 +85,16 @@ const Login = () => {
               />
               <button
                 type="button"
-                onClick={() => setSeePass(seePass === "password" ? "text" : "password")}
+                onClick={() =>
+                  setSeePass(seePass === "password" ? "text" : "password")
+                }
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--neutral)]"
               >
-                {seePass === "password" ? <AiFillEye className="w-5 h-5" /> : <AiFillEyeInvisible className="w-5 h-5" />}
+                {seePass === "password" ? (
+                  <AiFillEye className="w-5 h-5" />
+                ) : (
+                  <AiFillEyeInvisible className="w-5 h-5" />
+                )}
               </button>
             </div>
           </div>

@@ -1,14 +1,37 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TbMenu3, TbX } from "react-icons/tb";
+import Image from "next/image";
+import { FaUserCircle } from "react-icons/fa";
+
 
 
 const Navbar = () => {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+    const [userInitial, setUserInitial] = useState<string | null>(null);
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    useEffect(() => {
+    const initial = localStorage.getItem("userInitial");
+    setUserInitial(initial);
+  }, []);
+
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
 
   const sidebarLinkClass =
@@ -96,16 +119,43 @@ const Navbar = () => {
       )}
 
       {/* DESKTOP NAVBAR */}
-      <div className="sticky top-0 border-b border-gray-200 bg-white p-6 z-30 hidden xl:flex items-center justify-between shadow">
-        <h2 className="text-2xl font-semibold text-black">TO DO LIST</h2>
+        <div className="sticky top-0 border-b border-gray-200 bg-white p-6 z-30 hidden xl:flex items-center justify-between shadow">
+      <h2 className="text-2xl font-semibold text-black">TO DO LIST</h2>
 
+      <div className="relative" ref={dropdownRef}>
+        {/* Avatar */}
         <button
-          onClick={handleLogout}
-          className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+          onClick={() => setOpen(!open)}
+          className="flex items-center focus:outline-none"
         >
-          Sign Out
+          <div className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center bg-gray-200 text-black font-bold">
+            {userInitial ? (
+              <span>{userInitial}</span>
+            ) : (
+              <Image
+                src="/user-avatar.png"
+                alt="User Avatar"
+                width={40}
+                height={40}
+                className="object-cover w-full h-full rounded-full"
+              />
+            )}
+          </div>
         </button>
+
+        {/* Dropdown */}
+        {open && (
+          <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg">
+            <button
+              onClick={handleLogout}
+              className="w-full text-left px-4 py-2 text-red-500 hover:bg-red-100 rounded-md"
+            >
+              Sign Out
+            </button>
+          </div>
+        )}
       </div>
+    </div>
     </>
   );
 };
