@@ -48,12 +48,19 @@ body {
 
 }
 
+
 span.font-medium.text-red {
   color: #172b4d;
   font-weight: 600;
-  font-size: 11px;
+  font-size: 12px;
+  position: relative;
+  right: 10px;
 }
-
+span.text-red-500 {
+    color: #172b4d;
+    font-weight: 500;
+    font-size: 13px;
+}
 .mb-4.rounded-xl.p-3.bg-white.shadow {
   background: #ffffff;
   color: black;
@@ -216,6 +223,6 @@ span.text-2xl.font-semibold.text-black {
   /* spacing between letters */
   font-size: 1.5rem;
   /* increase the size */
-  
+
   /* capitalize all letters */
 }

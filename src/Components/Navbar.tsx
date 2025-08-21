@@ -3,51 +3,33 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { TbMenu3, TbX } from "react-icons/tb";
-import Swal from "sweetalert2";
+
 
 const Navbar = () => {
   const router = useRouter();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Logout with SweetAlert2 confirmation
-  const handleLogout = async () => {
-    const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "You will be logged out!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, logout!",
-      cancelButtonText: "Cancel",
-    });
-
-    if (result.isConfirmed) {
-      try {
-        const token = localStorage.getItem("token");
-
-        if (token) {
-          await fetch("http://localhost:5010/admin/logout", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ token }),
-          });
-        }
-
-        localStorage.removeItem("token");
-        router.push("/auth/login");
-
-        Swal.fire("Logged Out!", "You have been successfully logged out.", "success");
-      } catch (err) {
-        console.error("Logout error:", err);
-        Swal.fire("Error!", "Something went wrong.", "error");
-      }
-    }
-  };
 
   const sidebarLinkClass =
     "w-full flex items-center font-medium text-lg xl:text-xl gap-2 2xl:gap-4 px-4 2xl:px-6 py-4 rounded-2xl transition-colors bg-[var(--button)] text-white";
+  const handleLogout = async () => {
+    try {
+    
+
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/logout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+       
+      });
+
+    
+
+      window.location.href = "/auth/login";
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  };
 
   return (
     <>
