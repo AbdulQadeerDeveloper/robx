@@ -46,7 +46,8 @@ const Navbar = () => {
        
       });
 
-    
+        localStorage.clear();
+
 
       window.location.href = "/auth/login";
     } catch (err) {
