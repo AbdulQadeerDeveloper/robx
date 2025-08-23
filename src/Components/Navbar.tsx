@@ -97,14 +97,14 @@ const Navbar = () => {
         <h2 className="text-2xl font-semibold text-black">TO DO LIST</h2>
 
         {/* Buttons visible on desktop + iPad */}
-        <div className="flex gap-4">
+        {/* <div className="flex gap-4">
           <button
             className={sidebarLinkClass}
             onClick={() => router.push("/dashboard")}
           >
             Dashboard
           </button>
-        </div>
+        </div> */}
 
         {/* User Avatar */}
         <div className="relative" ref={dropdownRef}>
