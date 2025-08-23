@@ -50,9 +50,8 @@ const Login = () => {
   };
 
   return (
-    <main className="relative w-full min-h-screen flex items-center justify-between bg-[var(--accent-secondary)]">
-      <section className="w-1/2 h-screen hidden lg:block bg-[url('/Auth/Auth-Hero.jpg')] bg-cover bg-end bg-no-repeat"></section>
-      <section className="text-white w-10/12 lg:w-[45%] flex flex-col justify-center gap-10 max-w-lg h-full mx-auto p-10 border-1 border-[var(--button)] rounded-lg bg-[#18062C]">
+    <main className="w-full min-h-screen flex items-center justify-center bg-[var(--accent-secondary)]">
+      <section className="w-10/12 max-w-lg flex flex-col justify-center gap-10 p-10 rounded-lg bg-[#18062C] text-white">
         <h2 className="text-3xl font-bold text-center text-[var(--neutral)]">
           Welcome Back!
         </h2>

@@ -82,7 +82,11 @@ function StatusIcon({
   );
 }
 
-export default function TasksBoard({ refreshTrigger }: { refreshTrigger?: number }) {
+export default function TasksBoard({
+  refreshTrigger,
+}: {
+  refreshTrigger?: number;
+}) {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -273,7 +277,10 @@ export default function TasksBoard({ refreshTrigger }: { refreshTrigger?: number
       </div>
 
       {/* Modals */}
-      <Modal isOpen={isFormOpen && !editingTaskId} onClose={() => setIsFormOpen(false)}>
+      <Modal
+        isOpen={isFormOpen && !editingTaskId}
+        onClose={() => setIsFormOpen(false)}
+      >
         <TaskForm
           onCancel={() => setIsFormOpen(false)}
           onSubmit={(newTask) => {
@@ -377,6 +384,14 @@ export default function TasksBoard({ refreshTrigger }: { refreshTrigger?: number
                             className={`mb-4 rounded-xl p-3 bg-white shadow ${
                               snapshot.isDragging ? "opacity-80" : ""
                             }`}
+                            style={
+                              index === 1
+                                ? {
+                                    boxShadow:
+                                      "rgba(0, 0, 0, 0.15) 0px 2px 8px",
+                                  } // second card
+                                : {}
+                            }
                           >
                             <div className="flex flex-col">
                               <div className="flex items-center justify-between mb-2">
@@ -425,13 +440,14 @@ export default function TasksBoard({ refreshTrigger }: { refreshTrigger?: number
                                 <MdOutlineWatchLater className="text-gray-500 font-xl" />
                                 <span className="text-red-500">
                                   {task.dueDate &&
-                                    new Date(
-                                      task.dueDate
-                                    ).toLocaleDateString("en-US", {
-                                      day: "numeric",
-                                      month: "short",
-                                      year: "numeric",
-                                    })}
+                                    new Date(task.dueDate).toLocaleDateString(
+                                      "en-US",
+                                      {
+                                        day: "numeric",
+                                        month: "short",
+                                        year: "numeric",
+                                      }
+                                    )}
                                 </span>
                               </div>
                             </div>
