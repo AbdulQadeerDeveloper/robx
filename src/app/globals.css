@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 /* ================================
    Theme Variables
@@ -19,9 +18,8 @@
 }
 
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 600;
-
 }
 
 span.font-medium.text-red {
@@ -45,9 +43,7 @@ svg.text-gray-500.font-xl {
 body {
   background-color: white;
   color: black;
-
 }
-
 
 span.font-medium.text-red {
   color: #172b4d;
@@ -57,19 +53,17 @@ span.font-medium.text-red {
   right: 10px;
 }
 span.text-red-500 {
-    color: #172b4d;
-    font-weight: 500;
-    font-size: 13px;
+  color: #172b4d;
+  font-weight: 500;
+  font-size: 13px;
 }
 .mb-4.rounded-xl.p-3.bg-white.shadow {
   background: #ffffff;
   color: black;
-  border: 1px solid var(--button);
   border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
   padding: 1rem;
-
 }
-
 
 Link,
 button {
@@ -83,12 +77,15 @@ button.flex.items-center.px-4.py-2.bg-red.text-white.border.border-gray-300.roun
 /* ================================
    Layout
 ================================ */
-main.relative.col-span-full.xl\:col-span-9.\32 xl\:col-span-10.xl\:col-start-4.\32 xl\:col-start-3.row-start-2.overflow-y-auto {
+main.relative.col-span-full.xl\:col-span-9.\32
+  xl\:col-span-10.xl\:col-start-4.\32
+  xl\:col-start-3.row-start-2.overflow-y-auto {
   background: #fafcfd;
   color: black;
 }
 
-.sticky.top-0.border-b.border-\[var\(--border\)\].h-fit.w-full.bg-white.p-6.\32 xl\:p-7.z-30.hidden.xl\:flex.items-center.justify-between.shadow {
+.sticky.top-0.border-b.border-\[var\(--border\)\].h-fit.w-full.bg-white.p-6.\32
+  xl\:p-7.z-30.hidden.xl\:flex.items-center.justify-between.shadow {
   border-bottom: #eaecf0;
 }
 
@@ -118,7 +115,9 @@ button.absolute.-top-4.right-4.text-\[var\(--text\)\] {
   color: white;
 }
 
-a.w-full.flex.items-center.font-medium.text-lg.xl\:text-xl.gap-2.\32 xl\:gap-4.px-4.\32 xl\:px-6.py-4.rounded-2xl.hover\:bg-\[var\(--accent\)\].transition-colors.bg-\[var\(--button\)\] {
+a.w-full.flex.items-center.font-medium.text-lg.xl\:text-xl.gap-2.\32
+  xl\:gap-4.px-4.\32
+  xl\:px-6.py-4.rounded-2xl.hover\:bg-\[var\(--accent\)\].transition-colors.bg-\[var\(--button\)\] {
   color: white;
 }
 
