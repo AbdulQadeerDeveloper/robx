@@ -42,7 +42,8 @@ const Navbar = () => {
       });
 
       localStorage.clear();
-      window.location.href = "/auth/login";
+      // window.location.href = "/auth/login";
+      router.push("/auth/login");
     } catch (err) {
       console.error("Logout failed:", err);
     }

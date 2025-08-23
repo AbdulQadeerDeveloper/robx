@@ -40,7 +40,8 @@ const Login = () => {
         localStorage.setItem("userInitial", username.charAt(0).toUpperCase());
       }
 
-      window.location.href = "/user/dashboard";
+      // window.location.href = "/user/dashboard";
+      router.push("/user/dashboard");
     } catch (err) {
       console.error(err);
       setError("Something went wrong");
