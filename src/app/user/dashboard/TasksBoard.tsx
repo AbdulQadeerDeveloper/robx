@@ -16,9 +16,10 @@ import AddMemberModal from "@/Components/Modals/AddmemberModal";
 import { COLORS } from "@/constants/Data";
 import { Task } from "@/types/task";
 import { MdDelete, MdOutlineWatchLater } from "react-icons/md";
+import { Pencil, Trash2 } from "lucide-react";
 
 interface User {
-  id: number;
+  id: string;
   name: string;
 }
 
@@ -50,7 +51,7 @@ function StatusIcon({
   onStatusChange,
 }: {
   task: Task;
-  onStatusChange: (id: number, newStatus: BackendStatus) => Promise<void>;
+  onStatusChange: (id: string, newStatus: BackendStatus) => Promise<void>;
 }) {
   const [loading, setLoading] = useState(false);
 
@@ -88,7 +89,7 @@ export default function TasksBoard({
   refreshTrigger?: number;
 }) {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isAddMemberOpen, setIsAddMemberOpen] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
@@ -103,7 +104,7 @@ export default function TasksBoard({
     done: 4,
   });
 
-  const handleDelete = async (taskId: number) => {
+  const handleDelete = async (taskId: string) => {
     if (confirm("Are you sure you want to delete this task?")) {
       try {
         await fetch(
@@ -117,7 +118,7 @@ export default function TasksBoard({
     }
   };
 
-  const changeStatus = async (taskId: number, newStatus: BackendStatus) => {
+  const changeStatus = async (taskId: string, newStatus: BackendStatus) => {
     setTasks((prev) =>
       prev.map((task) =>
         task.id === taskId ? { ...task, status: newStatus } : task
@@ -140,7 +141,7 @@ export default function TasksBoard({
     if (!result.destination) return;
 
     const newStatus = result.destination.droppableId as BackendStatus;
-    const taskId = Number(result.draggableId);
+    const taskId = result.draggableId;
 
     setTasks((prev) =>
       prev.map((task) =>
@@ -215,13 +216,28 @@ export default function TasksBoard({
     year: "numeric",
   });
 
+  const getStatusStyle = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "low":
+        return "bg-green-100 text-green-700";
+      case "normal":
+        return "bg-blue-100 text-blue-700";
+      case "high":
+        return "bg-yellow-100 text-yellow-700";
+      case "urgent":
+        return "bg-red-100 text-red-700";
+      default:
+        return "bg-gray-100 text-gray-700";
+    }
+  };
+
   const getRandomColor = () =>
     `#${Math.floor(Math.random() * 0xffffff)
       .toString(16)
       .padStart(6, "0")}`;
 
   return (
-    <div className="space-y-10 p-6 min-h-screen">
+    <div className="space-y-10 p-6 min-h-screen board-background">
       {/* Header */}
       <div className="w-full flex flex-col lg:flex-row items-start lg:items-center gap-6 justify-between">
         <div className="flex flex-col">
@@ -234,7 +250,7 @@ export default function TasksBoard({
         </div>
 
         <div className="flex flex-col md:flex-row gap-6">
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             {loading ? (
               <div className="h-6 w-6 animate-spin border-4 border-purple-500 border-r-transparent rounded-full"></div>
             ) : (
@@ -254,7 +270,7 @@ export default function TasksBoard({
                 </div>
               ))
             )}
-          </div>
+          </div> */}
 
           <div className="flex items-center gap-3">
             <button
@@ -323,21 +339,22 @@ export default function TasksBoard({
 
       {/* Kanban Board */}
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 ">
           {columns.map((col) => {
             const columnTasks = tasks.filter((task) => {
-              if (col.id === "need-review") {
-                const today = new Date().toISOString().split("T")[0];
-                const taskDate = task.dueDate
-                  ? new Date(task.dueDate).toISOString().split("T")[0]
-                  : null;
+              console.log(col.id);
+              // if (col.id === "need-review") {
+              //   const today = new Date().toISOString().split("T")[0];
+              //   const taskDate = task.dueDate
+              //     ? new Date(task.dueDate).toISOString().split("T")[0]
+              //     : null;
 
-                return (
-                  task.status === col.id &&
-                  taskDate !== null &&
-                  taskDate < today
-                );
-              }
+              //   return (
+              //     task.status === col.id &&
+              //     taskDate !== null &&
+              //     taskDate < today
+              //   );
+              // }
               return task.status === col.id;
             });
 
@@ -350,10 +367,10 @@ export default function TasksBoard({
               <Droppable key={col.id} droppableId={col.id}>
                 {(provided, snapshot) => (
                   <div
-                    className={`kanban-column flex flex-col rounded-2xl p-4 border-2 transition shadow-sm ${
+                    className={`kanban-column flex flex-col rounded-lg p-4 border-2 transition   ${
                       snapshot.isDraggingOver
-                        ? "bg-purple-100 border-purple-400"
-                        : "bg-white/70 border-purple-200"
+                        ? "bg-purple-100 "
+                        : "bg-white/70 "
                     }`}
                     {...provided.droppableProps}
                     ref={provided.innerRef}
@@ -404,19 +421,32 @@ export default function TasksBoard({
                                     {task.title}
                                   </span>
                                 </div>
+                                <div className="flex items-center justify-between group mr-1">
+                                  {/* Status badge */}
+                                  {col.id !== "done" && (
+                                    <span
+                                      className={`px-2 mx-2 py-1 rounded-lg text-xs font-medium ${getStatusStyle(
+                                        task.priority
+                                      )}`}
+                                    >
+                                      {task.priority}
+                                    </span>
+                                  )}
 
-                                <div className="flex items-center gap-1">
-                                  <FaRegEdit
-                                    className="cursor-pointer text-blue-500 hover:text-blue-700"
-                                    onClick={() => {
-                                      setEditingTaskId(task.id);
-                                      setIsFormOpen(true);
-                                    }}
-                                  />
-                                  <MdDelete
-                                    className="cursor-pointer text-red-500 hover:text-red-700"
-                                    onClick={() => handleDelete(task.id)}
-                                  />
+                                  {/* Edit/Delete (hidden until hover) */}
+                                  <div className="flex items-center gap-2 opacity-100 ">
+                                    <Pencil
+                                      className="w-4 h-4 cursor-pointer text-blue-500 hover:text-blue-700"
+                                      onClick={() => {
+                                        setEditingTaskId(task.id);
+                                        setIsFormOpen(true);
+                                      }}
+                                    />
+                                    <Trash2
+                                      className="w-4 h-4 cursor-pointer text-red-500 hover:text-red-700"
+                                      onClick={() => handleDelete(task.id)}
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -436,19 +466,49 @@ export default function TasksBoard({
                                 </span>
                               </div>
 
-                              <div className="flex items-center gap-1">
+                              <div className="flex items-center gap-1 mr-1">
                                 <MdOutlineWatchLater className="text-gray-500 font-xl" />
-                                <span className="text-red-500">
-                                  {task.dueDate &&
-                                    new Date(task.dueDate).toLocaleDateString(
-                                      "en-US",
-                                      {
-                                        day: "numeric",
-                                        month: "short",
-                                        year: "numeric",
-                                      }
-                                    )}
-                                </span>
+
+                                {task.dueDate &&
+                                  (() => {
+                                    const due = new Date(task.dueDate);
+                                    const today = new Date();
+
+                                    // normalize (ignore time part)
+                                    const dueDate = new Date(
+                                      due.getFullYear(),
+                                      due.getMonth(),
+                                      due.getDate()
+                                    );
+                                    const currentDate = new Date(
+                                      today.getFullYear(),
+                                      today.getMonth(),
+                                      today.getDate()
+                                    );
+
+                                    let bgClass = "bg-gray-200 text-gray-700"; // default
+                                    if (dueDate < currentDate) {
+                                      bgClass = "bg-red-100 text-red-600"; // overdue
+                                    } else if (
+                                      dueDate.getTime() ===
+                                      currentDate.getTime()
+                                    ) {
+                                      bgClass = "bg-yellow-100 text-yellow-700"; // today
+                                    } else {
+                                      bgClass = "bg-green-100 text-green-700"; // upcoming
+                                    }
+
+                                    return (
+                                      <span
+                                        className={`px-2 py-1 rounded-md text-xs font-medium ${col.id === "done"? "bg-green-100 text-green-700" :bgClass}`}
+                                      >
+                                        {due.toLocaleDateString("en-US", {
+                                          day: "numeric",
+                                          month: "short",
+                                        })}
+                                      </span>
+                                    );
+                                  })()}
                               </div>
                             </div>
                           </div>

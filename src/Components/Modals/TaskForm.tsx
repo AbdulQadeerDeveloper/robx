@@ -220,9 +220,9 @@ export default function TaskForm({
         {task ? "Edit Task" : "Create New Task"}
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-2">
         <div>
-          <label className="block text-sm font-medium text-gray-800 mb-1">
+          <label className="block text-sm font-medium text-gray-800 ">
             Task Title
           </label>
           <input
@@ -244,8 +244,8 @@ export default function TaskForm({
           initialId={task?.assignedUser?.id?.toString() || ""}
         />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-800 mb-1">
+        <div className="">
+          <label className="block text-sm font-medium text-gray-800 ">
             Due Date
           </label>
           <DatePicker
@@ -293,7 +293,7 @@ export default function TaskForm({
         </div>
       </div>
 
-      <div>
+      <div className="mt-4 mb-4">
         <label className="block text-sm font-medium text-gray-800 mb-1">
           Task Description
         </label>

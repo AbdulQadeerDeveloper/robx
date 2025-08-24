@@ -1,6 +1,5 @@
 @import "tailwindcss";
-
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sora:wght@100..800&display=swap');
 
 /* ================================
    Theme Variables
@@ -18,8 +17,8 @@
 }
 
 * {
-  font-family: "Roboto", sans-serif;
-  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  /* font-weight: 600; */
 }
 
 span.font-medium.text-red {
@@ -27,6 +26,31 @@ span.font-medium.text-red {
   font-weight: 600;
   letter-spacing: 0.5px;
 }
+
+.board-background {
+  position: relative;
+  /* background: #f5f7f9; */
+  border-radius: 12px;
+  overflow: hidden; /* keeps logo inside */
+
+  /* optional padding, etc. */
+}
+
+/* logo as pseudo-element */
+.board-background::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;          /* adjust logo size */
+  height: 500px;
+  background: url("https://iamscientist.ai/_next/image?url=%2Fcountrypartner%2FLogos%2FJ7Emporium.webp&w=256&q=75") no-repeat center center;
+  background-size: contain;
+  opacity: 0.07;         /* low opacity */
+  transform: translate(-50%, -50%);
+  pointer-events: none;  /* avoid blocking clicks */
+}
+
 
 span.text-red-500 {
   color: #172b4d;
@@ -57,13 +81,13 @@ span.text-red-500 {
   font-weight: 500;
   font-size: 13px;
 }
-.mb-4.rounded-xl.p-3.bg-white.shadow {
+/* .mb-4.rounded-xl.p-3.bg-white.shadow {
   background: #ffffff;
   color: black;
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
   padding: 1rem;
-}
+} */
 
 Link,
 button {
@@ -168,12 +192,24 @@ p.text-xs.font-medium.text-\[var\(--text\)\] {
    Kanban Column
 ================================ */
 .kanban-column {
-  background: #ffffff;
-  color: black;
-  border: 1px solid var(--button);
-  border-radius: 1rem;
+  background: #F5F7F9;
+  border: 1px solid #F5F7F9;
+  border-radius: 12px;
   padding: 1.5rem;
-  min-height: 200px;
+  max-height: 700px;
+
+  /* ✅ Only show scrollbar when needed */
+  overflow-y: auto;
+
+  /* ✅ Firefox: hide scrollbar track */
+  scrollbar-width: none;
+
+  /* ✅ Safari & Chrome: hide scrollbar */
+  -ms-overflow-style: none; /* IE & Edge */
+}
+
+.kanban-column::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 
 #task-checkbox {
